@@ -101,12 +101,12 @@
                     </div>
                     <div class="card-body">
                         <table class="table">
-                            <thead class="text-white bg-secondary">
+                            {{-- <thead class="text-white bg-secondary">
                                 <th>No.</th>
                                 <th>Category Name</th>
                                 <th>Register By</th>
                         
-                            </thead>
+                            </thead> --}}
                             <tbody id="list">
                                 {{-- @dd($getalluser) --}}
                                 @foreach ($getalluser as $editdata)
