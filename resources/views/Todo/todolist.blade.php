@@ -1,4 +1,4 @@
-@extends('layout.layout')
+@extends('layout.master')
 
 @section('content')
 
@@ -69,6 +69,7 @@
                 },
                 success: function(data) {
                     var subdata = $('#sub');
+                    // console.log(subdata);
                     subdata.empty();
 
                     subdata.append('<option selected>Select Sub-Category</option>');

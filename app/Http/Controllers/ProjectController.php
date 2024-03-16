@@ -41,6 +41,14 @@ class ProjectController extends Controller
         //
     }
 
+  
+
+    public function projectdata(Request $request) {
+
+        $getalldata = Project::get();
+        return view('Project.projectdata',compact('getalldata'));
+    }
+
     public function getsubBycategory(Request $request)
     {
         $category_id = $request->id;
@@ -88,10 +96,6 @@ class ProjectController extends Controller
             return view('Project.edit', compact('getalldata','getcategory','getsub'));
         }
     }
-
-  
-    
-
 
     /**
      * Update the specified resource in storage.

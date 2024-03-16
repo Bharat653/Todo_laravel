@@ -1,5 +1,4 @@
 @extends('layout.editl')
-    <!-- Bootstrap Navigation Bar -->
   
 
     <div class="container">

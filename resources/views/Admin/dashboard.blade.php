@@ -82,21 +82,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('dashboard.index') }}">Dashboard</a>
                 </li>
-                {{-- <li class="nav-item active">
-                    <a class="nav-link" href="{{route('category.index')}}">Add Category <span class="sr-only">(current)</span></a>
-                </li> --}}
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('insert.index') }}">Registration</a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a class="nav-link" href="{{ route('project.index') }}">Add Project </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('list.index') }}">Add Todo </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('tododata.index') }}">Todo Data </a>
-                </li> --}}
+
                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"

@@ -17,6 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        
         $getalldata = Category::get();
         return view('category.category',compact('getalldata'));
     }
@@ -27,6 +28,13 @@ class CategoryController extends Controller
     public function create()
     {
         //
+    }
+
+    public function categorydata( Request $request) {
+        // dd($request);
+        $getalldata = Category::get();
+        return view('Category.Categorydata',compact('getalldata'));
+
     }
 
     /**

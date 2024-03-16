@@ -1015,3 +1015,20 @@
 
 
 
+{{-- <select class="js-example-disabled-results">
+    <option value="one">First</option>
+    <option value="two">Second</option>
+    <option value="three">Third</option>
+</select> --}}
+
+
+
+  {{-- <div class="row">
+                    <i class="fas fa-book"></i>
+                    <x-forms  type="text" name="category_name" placeholder="category_name" required>
+                        <option>Select Category</option>
+                        @foreach ($getcategory as $id => $name)
+                        <option value="{{ $id }}">{{ $name }}</option>
+                        @endforeach
+                    </x-forms>
+                </div>

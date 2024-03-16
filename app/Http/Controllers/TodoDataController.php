@@ -15,21 +15,20 @@ class TodoDataController extends Controller
      */
     public function index(Request $request)
     {
+        $gettododata = Todo::get();
+        // dd($gettododata);
+
         $getcategory = Category::get();
-        // dd($getcategory);
+        
         $search = $request['search'] ?? "";
-        // dd($search);
-        if($search !=""){
-            $getalldata = Todo::where('todo_name','LIKE',"%$search%")->get();
+
+        if ($search != "") {
+            $getalldata = Todo::where('todo_name', 'LIKE', "%$search%")->get();
             // dd( $getalldata);
+        } else {
+            $getalldata = Todo::get();
         }
-        else {
-            $getalldata = Todo::get(); 
-        }
-        // $getalldata = Todo::with(["category"])->get();
-       
-        // dd($getalldata); 
-        return view('Todo.tododata',compact('getalldata','search','getcategory'));
+        return view('Todo.tododata', compact('getalldata', 'search', 'getcategory','gettododata'));
     }
 
     /**
@@ -40,6 +39,16 @@ class TodoDataController extends Controller
         //
     }
 
+    public function getsearch(Request $request) {
+        
+        $getsearchdata = $request->id;
+        // dd($getsearchdata);
+        // dd(Todo::whereIn('id',$getsearchdata)->pluck('project_id'));
+        $searchdata = Todo::whereIn('id',$getsearchdata)->pluck('todo_name','project_id');
+        // dd($searchdata); 
+        
+        return response()->json(['searchdata' => $searchdata]);
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -53,13 +62,13 @@ class TodoDataController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // dd($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string  $id )
+    public function edit(string  $id)
     {
         $getcategory = Category::get();
         $getsub = Sub::get();
@@ -69,11 +78,10 @@ class TodoDataController extends Controller
         // dd($getsub);
         $getalldata = Todo::find($id);
         // dd($getalldata);
-        if($getalldata == null) {
+        if ($getalldata == null) {
             abort('403');
-        }
-        else {
-            return view('Todo.edit',compact('getalldata','getcategory','getsub','getproject'));
+        } else {
+            return view('Todo.edit', compact('getalldata', 'getcategory', 'getsub', 'getproject'));
         }
     }
 
@@ -84,20 +92,17 @@ class TodoDataController extends Controller
     {
         $getalldata = Todo::find($id);
         // dd($getalldata);
-        if($getalldata == null) {
+        if ($getalldata == null) {
             abort('403');
-        }
-        else {
-            $getalldata->todo_name =$request->input('todo_name');
+        } else {
+            $getalldata->todo_name = $request->input('todo_name');
             // $getalldata->category_id =$request->input('category_id');
             // $getalldata->sub_id =$request->input('sub_id');
-            $getalldata->project_id =$request->input('project_id');
+            $getalldata->project_id = $request->input('project_id');
             // dd($getalldata);
             $getalldata->save();
             return redirect()->route('tododata.index');
-
         }
-
     }
 
     /**
@@ -109,6 +114,5 @@ class TodoDataController extends Controller
         // dd($getalldata);
         $getalldata->delete($id);
         return redirect()->route('tododata.index');
-
     }
 }

@@ -30,17 +30,23 @@ Route::resource('dashboard2',Dashboard2Controller::class)->middleware('checkuser
 Route::get('/logout',[Dashboard2Controller::class,'logout'])->name('logout');
 
 
-Route::resource('category',CategoryController::class)->middleware('checkuser');
+Route::get('/categorydata',[CategoryController::class,'categorydata'])->name('categorydata');
+Route::resource('category',CategoryController::class)->middleware('checklogin');
 
+Route::get('getsearch',[TodoDataController::class,'getsearch'])->name('getsearch');
 Route::resource('list',ListController::class)->middleware('checkuser');
-Route::resource('tododata',TodoDataController::class)->middleware('checkuser');
+Route::resource('tododata',TodoDataController::class)->middleware('checklogin');
+
 
 Route::post('getprojectbysub',[ListController::class,'getprojectbysub'])->name('getprojectbysub');
+Route::get('/subdata',[SubController::class,'subdata'])->name('subdata');
+Route::resource('sub',SubController::class)->middleware('checklogin');
 
 
-Route::resource('sub',SubController::class)->middleware('checkuser');
 
-Route::resource('project',ProjectController::class)->middleware('checkuser');
+Route::get('/projectdata',[ProjectController::class,'projectdata'])->name('projectdata');
+Route::resource('project',ProjectController::class)->middleware('checklogin');
 Route::post('getsubBycategory',[ProjectController::class,'getsubBycategory'])->name('getsubBycategory');
+
 
 Route::resource('insert',InsertController::class);

@@ -21,27 +21,27 @@
         <form action="{{ route('tododata.update', $getalldata->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
-            <div class="row">
-                    <i class="fas fa-book"></i>
-                    <select name="category_id" id="category" class="form-control input-sm" required>
-                        <option>Select Category</option>
-                        @foreach ($getcategory as $category)
-                            <option value="{{ $category->id }}" @if ($category->id == $getalldata->category_id) selected @endif>
-                                {{ $category->category_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            
-                <div class="row">
-                    <i class="fas fa-book"></i>
-                    <select name="sub_id" id="sub" class="form-control input-sm" disabled required>
-                        <option>Select Sub</option>
-                        @foreach ($getsub as $sub)
-                            <option value="{{ $sub->id }}" @if ($sub->id == $getalldata->sub_id) selected @endif>
-                                {{ $sub->sub_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+            {{-- <div class="row">
+                <i class="fas fa-book"></i>
+                <select name="category_id" id="category" class="form-control input-sm" required>
+                    <option>Select Category</option>
+                    @foreach ($getcategory as $category)
+                        <option value="{{ $category->id }}" @if ($category->id == $getalldata->category_id) selected @endif>
+                            {{ $category->category_name }}</option>
+                    @endforeach
+                </select>
+            </div> --}}
+
+            {{-- <div class="row">
+                <i class="fas fa-book"></i>
+                <select name="sub_id" id="sub" class="form-control input-sm" disabled required>
+                    <option>Select Sub</option>
+                    @foreach ($getsub as $sub)
+                        <option value="{{ $sub->id }}" @if ($sub->id == $getalldata->sub_id) selected @endif>
+                            {{ $sub->sub_name }}</option>
+                    @endforeach
+                </select>
+            </div> --}}
 
             <div class="row">
                 <i class="fas fa-book"></i>
@@ -77,7 +77,6 @@
 <script>
     $(document).ready(function() {
         $('#category').change(function() {
-            // alert("heyy");
             var id = $(this).val();
             var token = "{{ csrf_token() }}";
             $.ajax({
@@ -90,7 +89,6 @@
                 success: function(data) {
                     var subdata = $('#sub');
                     subdata.empty();
-
                     subdata.append('<option selected>Select Sub-Category</option>');
 
                     $.each(data.subCategories, function(id, name) {
@@ -100,6 +98,11 @@
                     subdata.prop('disabled', false);
                 },
             });
+        });
+
+        // Handling form submission
+        $('form').submit(function() {
+            $('#project').prop('disabled', false); // Enable the select element before form submission
         });
     });
 
@@ -128,5 +131,9 @@
                 },
             });
         });
+
+        
     });
+
+
 </script>

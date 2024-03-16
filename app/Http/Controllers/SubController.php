@@ -29,12 +29,22 @@ class SubController extends Controller
         //
     }
 
+    public function subdata(Request $request) {
+
+        $getalldata = Sub::get();
+        return view('SubCategory.subdata',compact('getalldata'));
+
+
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+        // DD($request->isMethod('post'));
        $request->validate(['category_id' =>'required','sub_name' =>'required']);
+    //    dd($request);
        $resp = (new SubService)->store($request);
 
        if($resp['status']){
@@ -56,13 +66,13 @@ class SubController extends Controller
     public function edit(string $id)
     {
         $getcategory = Category::get();
-        $getalldata = Sub::find($id);
-        if($getalldata == null) {
-            abort('403');
+        $subCategory = Sub::find($id);
+        $getalldata = Sub::get();
+        if($subCategory != null) {
+            return view('SubCategory.sub',compact('subCategory','getcategory','getalldata'));
+        }else{
+            abort('403','User Not Found');
         }
-        else{
-            return view ('SubCategory.edit',compact('getalldata','getcategory'));
-          }
     }
 
     /**
@@ -70,16 +80,19 @@ class SubController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // DD($request->isMethod('put'));
+        // dd($id);
         $getallsub = Sub::find($id);
         if($getallsub == null) {
             abort('403');
         }
         else {
-            $getallsub->category_id =  $request->input('category_name');
-           
-            $getallsub->sub_name =  $request->input('sub_name');
+            $getallsub->category_id =  $request->input('category_id');
             // dd($getallsub);
+            $getallsub->sub_name =  $request->input('sub_name');
+           
             $getallsub->save();
+            // return redirect()->route('SubCategory.sub');
             return redirect()->route('sub.index');
         }
     }

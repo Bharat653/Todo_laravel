@@ -20,7 +20,7 @@
             @csrf
             @method('PATCH')
 
-            <div class="row">
+            {{-- <div class="row">
                 <i class="fas fa-book"></i>
                 <select name="category_name" id="category" class="form-control input-sm" readonly required>
                     <option>Select Catgeory</option>
@@ -29,7 +29,7 @@
                             {{ $category->category_name }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> --}}
             {{-- @dd($getsubcategory); --}}
             <div class="row">
                 <i class="fas fa-book"></i>
@@ -41,6 +41,7 @@
                     @endforeach
                 </select>
             </div>
+            
 
             <div class="row">
                 <div class="col-md-6 mb-4">
@@ -66,12 +67,8 @@
 </script>
 
 <script>
-    // $(".profile").click(function() {
-    //     alert('hey');
-    // })
     $(document).ready(function() {
         $('#category').change(function() {
-            // alert('heyy');
             var id = $(this).val();
             var token = "{{ csrf_token() }}";
             $.ajax({
@@ -84,7 +81,6 @@
                 success: function(data) {
                     var subdata = $('#sub');
                     subdata.empty();
-
                     subdata.append('<option selected>Select Sub-Category</option>');
 
                     $.each(data.subCategories, function(id, name) {
@@ -94,6 +90,11 @@
                     subdata.prop('disabled', false);
                 },
             });
+        });
+
+        // Handling form submission
+        $('form').submit(function() {
+            $('#sub').prop('disabled', false); // Enable the select element before form submission
         });
     });
 </script>

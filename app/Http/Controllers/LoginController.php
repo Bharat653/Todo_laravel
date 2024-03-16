@@ -29,8 +29,7 @@ class LoginController extends Controller
                 } else {
                     return redirect()->route('dashboard2.index');
                 }
-            }
-             else {
+            } else {
                 return abort('403');
             }
         } else {
