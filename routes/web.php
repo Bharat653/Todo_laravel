@@ -33,7 +33,7 @@ Route::get('/logout',[Dashboard2Controller::class,'logout'])->name('logout');
 Route::get('/categorydata',[CategoryController::class,'categorydata'])->name('categorydata');
 Route::resource('category',CategoryController::class)->middleware('checklogin');
 
-Route::get('getsearch',[TodoDataController::class,'getsearch'])->name('getsearch');
+Route::get('/getsearch',[TodoDataController::class,'getsearch'])->name('getsearch');
 Route::resource('list',ListController::class)->middleware('checkuser');
 Route::resource('tododata',TodoDataController::class)->middleware('checklogin');
 

@@ -100,9 +100,8 @@
             });
         });
 
-        // Handling form submission
         $('form').submit(function() {
-            $('#project').prop('disabled', false); // Enable the select element before form submission
+            $('#project').prop('disabled', false);
         });
     });
 

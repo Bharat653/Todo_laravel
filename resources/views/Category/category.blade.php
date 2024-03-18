@@ -8,7 +8,6 @@
             <div class="wrapper">
                 <div class="title"><span>Add Category</span></div>
                 <form action="{{ route('category.store') }}" method="post" enctype="multipart/form-data">
-                  
                     @csrf
 
                     <input type="text" name="register_id" value="{{ auth()->user()->id }}" class="form-control" hidden>

@@ -19,7 +19,7 @@ class TodoDataController extends Controller
         // dd($gettododata);
 
         $getcategory = Category::get();
-        
+
         $search = $request['search'] ?? "";
 
         if ($search != "") {
@@ -28,7 +28,7 @@ class TodoDataController extends Controller
         } else {
             $getalldata = Todo::get();
         }
-        return view('Todo.tododata', compact('getalldata', 'search', 'getcategory','gettododata'));
+        return view('Todo.tododata', compact('getalldata', 'search', 'getcategory', 'gettododata'));
     }
 
     /**
@@ -39,15 +39,15 @@ class TodoDataController extends Controller
         //
     }
 
-    public function getsearch(Request $request) {
-        
-        $getsearchdata = $request->id;
-        // dd($getsearchdata);
-        // dd(Todo::whereIn('id',$getsearchdata)->pluck('project_id'));
-        $searchdata = Todo::whereIn('id',$getsearchdata)->pluck('todo_name','project_id');
-        // dd($searchdata); 
-        
-        return response()->json(['searchdata' => $searchdata]);
+    public function getsearch(Request $request)
+    {
+        $id = $request->ids ?? [];
+        $todolist = Todo::whereIn('id', $id)->get();
+        return [
+            'html' => view('Todo.todoajax', compact('todolist'))->render(),
+            'status' => true,
+
+        ];
     }
     /**
      * Store a newly created resource in storage.
@@ -68,7 +68,7 @@ class TodoDataController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string  $id)
+    public function edit(string $id)
     {
         $getcategory = Category::get();
         $getsub = Sub::get();

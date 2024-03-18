@@ -25,31 +25,30 @@
 
             <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
                 <ul class="navbar-nav">
-                    @if(auth()->user()->role == 0)
-                        
-                   
-                    <li class="nav-item">
-                        <a class="nav-link text-white " href="{{ route('dashboard2.index') }}">
+                    @if (auth()->user()->role == 0)
+                        <li class="nav-item">
+                            <a class="nav-link text-white " href="{{ route('dashboard2.index') }}">
 
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">dashboard</i>
-                            </div>
+                                <div
+                                    class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                    <i class="material-icons opacity-10">dashboard</i>
+                                </div>
 
-                            <span class="nav-link-text ms-1">Dashboard</span>
-                        </a>
-                    </li>
+                                <span class="nav-link-text ms-1">Dashboard</span>
+                            </a>
+                        </li>
                     @else
+                        <li class="nav-item">
+                            <a class="nav-link text-white " href="{{ route('dashboard.index') }}">
 
-                    <li class="nav-item">
-                        <a class="nav-link text-white " href="{{ route('dashboard.index') }}">
+                                <div
+                                    class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                    <i class="material-icons opacity-10">dashboard</i>
+                                </div>
 
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">dashboard</i>
-                            </div>
-
-                            <span class="nav-link-text ms-1">Dashboard</span>
-                        </a>
-                    </li>
+                                <span class="nav-link-text ms-1">Dashboard</span>
+                            </a>
+                        </li>
                     @endif
 
                     <li class="nav-item">
@@ -279,44 +278,34 @@
         </main>
     @endif
     <!--   Core JS Files   -->
-    <script src="{{url('assets/js/core/popper.min.js')}}"></script>
-    <script src="{{url('assets/js/core/bootstrap.min.js')}}"></script>
-    <script src="{{url('assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
-    <script src="{{url('assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
+    <script src="{{ url('assets/js/core/popper.min.js') }}"></script>
+    <script src="{{ url('assets/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ url('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ url('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
     <!-- Github buttons -->
     <script src="https://buttons.github.io/buttons.js"></script>
 
 
-    <script src="{{url('js/material-dashboard.min.js?v=3.1.0')}}"></script>
+    <script src="{{ url('js/material-dashboard.min.js?v=3.1.0') }}"></script>
     <script>
         $(document).ready(function() {
             $('.todo').select2();
-            $('.todo').change(function() {
-                var id = $(this).val();
-                var token = "{{ csrf_token() }}";
-        
-                $.ajax({
-                    type: 'get',
-                    url: "{{ route('getsearch') }}",
-                    data: {
-                        id: id,
-                        _token: token
-                    },
-                    success: function(data) {
-                        var todoData = data.searchdata;
-        
-                        $('tbody').empty();
-        
-                        $.each(todoData, function(id, todo_name) {
-                            // console.log(todoData);
-                            $('tbody').append('<tr> <td>' + todo_name + '</td> </tr>');
-                        });
-                    }
-                });
+        });
+        $(document).on('change', '.todo', function() {
+            var id = $(this).val();
+            console.log(id);
+            $.ajax({
+                type: 'get',
+                url: "{{route('getsearch')}}",
+                data:{
+                    ids: id,
+                },
+                success: function(res) {
+                    $('#list').html(res.html);
+                }
             });
         });
-    </script> 
-        
+    </script>
 </body>
 
 </html>
